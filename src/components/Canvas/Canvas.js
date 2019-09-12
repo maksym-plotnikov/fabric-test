@@ -3,6 +3,7 @@ import { number, string } from "prop-types";
 import { fabric } from "../FabricComponents";
 import { createVideoElement } from "../utils/common";
 import api from "../utils/api";
+import { CanvasProvider } from "../utils/context";
 
 class Canvas extends Component {
   state = {
@@ -105,19 +106,21 @@ class Canvas extends Component {
 
   render() {
     const { canvas, capturer, previewMode, rehydrated } = this.state;
-    const { width, height } = this.props;
-    const children = React.Children.map(this.props.children, child => {
-      const isVideo = child.props && child.props.videoUrl;
-      return React.cloneElement(child, {
-        canvas,
-        capturer: isVideo && capturer,
-        previewMode: isVideo && previewMode
-      });
-    });
+    const { width, height, children } = this.props;
+    // const children = React.Children.map(this.props.children, child => {
+    //   const isVideo = child.props && child.props.videoUrl;
+    //   return React.cloneElement(child, {
+    //     canvas,
+    //     capturer: isVideo && capturer,
+    //     previewMode: isVideo && previewMode
+    //   });
+    // });
     return (
       <Fragment>
         <canvas ref={c => (this.c = c)} width={width} height={height} />
-        {canvas && !rehydrated && children}
+        <CanvasProvider value={{ canvas, capturer, previewMode }}>
+          {canvas && !rehydrated && children}
+        </CanvasProvider>
         <button onClick={this.saveCanvasState}>Save state</button>
         <button onClick={this.clearCanvasState}>Clear state</button>
         <button onClick={this.capture}>Capture</button>

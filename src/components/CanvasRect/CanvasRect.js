@@ -1,8 +1,9 @@
-import {PureComponent} from "react";
+import { Component } from "react";
 import { number, object, string } from "prop-types";
 import { fabric } from "../FabricComponents";
+import { WithCanvasContext } from "../utils/context";
 
-class CanvasRect extends PureComponent {
+class CanvasRect extends Component {
   componentDidMount() {
     const rect = new fabric.AnimatedRect(this.props);
     this.props.canvas.add(rect);
@@ -30,4 +31,4 @@ CanvasRect.propTypes = {
   fill: string.isRequired
 };
 
-export default CanvasRect;
+export default WithCanvasContext(CanvasRect);

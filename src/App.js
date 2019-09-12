@@ -9,47 +9,51 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <Canvas width={1080} height={1920} background="#fff">
-        <CanvasRect width={1000} height={80} fill="#eee" top={900} left={35} />
+      <Canvas width={1080} height={1920} stateful>
+        <CanvasRect width={1080} height={100} fill="#fff" top={900} left={0} />
         <CanvasText
-          text="Hello Unfold!"
-          width={420}
-          height={80}
-          fill="red"
-          top={900}
-          left={-400}
+          text="Hello Unfold"
+          fontStyle="bold"
+          textAlign="center"
+          width={1080}
+          height={90}
+          fill="#000"
+          left={0}
           fontSize={70}
           animation={{
-            property: "left",
-            value: 320,
-            options: { from: -400, duration: 2000, easing: "easeOutSine" }
+            property: "top",
+            value: 910,
+            options: { from: 2200, duration: 2000, easing: "easeOutCirc" }
           }}
         />
         <CanvasImage
           url="http://unfold-dev-api.uat.link/static/kv.jpg"
-          scale={0.25}
-          top={20}
+          scale={1.0}
+          top={0}
+          left={0}
           height={1920}
           width={1080}
+          opacity={0}
           animation={{
-            property: "left",
-            value: 220,
-            options: { from: 20, duration: 2000, easing: "easeOutSine" }
+            property: "opacity",
+            value: 1.0,
+            options: { from: 0.0, duration: 3000, easing: "easeOutSine" }
           }}
+          isBg
         />
         <CanvasVideo
           videoUrl="http://unfold-dev-api.uat.link/static/intro2.mp4"
-          scale={0.45}
-          top={20}
-          left={275}
+          scale={0.25}
+          top={0}
+          left={0}
           height={1920}
           width={1080}
         />
         <CanvasVideo
           videoUrl="http://unfold-dev-api.uat.link/static/intro1.mp4"
-          scale={0.45}
-          top={1000}
-          left={275}
+          scale={0.25}
+          top={1444}
+          left={814}
           height={1920}
           width={1080}
         />

@@ -1,6 +1,21 @@
 // Only one ORIGINAL fabric instance entry
 import { fabric } from "fabric";
 
+const initAnimation = self => {
+  if (Object.keys(self.animation).length) {
+    const {
+      property,
+      value,
+      options: { from, duration, easing = "easeOutSine" }
+    } = self.animation;
+    self.animate(property, value, {
+      from,
+      duration,
+      easing: fabric.util.ease[easing]
+    });
+  }
+};
+
 /****** EXTEND FABRIC CLASSES WITH OUR CUSTOM ONE ******/
 
 /*** AnimatedTextbox ***/
@@ -12,18 +27,7 @@ fabric.AnimatedTextbox = fabric.util.createClass(fabric.Textbox, {
     options || (options = {});
     this.callSuper("initialize", text, options);
     this.set("animation", options.animation || "");
-    if (Object.keys(this.animation).length) {
-      const {
-        property,
-        value,
-        options: { from, duration, easing }
-      } = this.animation;
-      this.animate(property, value, {
-        from,
-        duration,
-        easing: fabric.util.ease[easing]
-      });
-    }
+    initAnimation(this);
   }
 });
 fabric.AnimatedTextbox.fromObject = function(object, callback) {
@@ -38,19 +42,7 @@ fabric.AnimatedRect = fabric.util.createClass(fabric.Rect, {
     options || (options = {});
     this.callSuper("initialize", options);
     this.set("animation", options.animation || {});
-    if (Object.keys(this.animation).length) {
-      const {
-        property,
-        value,
-        options: { from, duration, easing }
-      } = this.animation;
-
-      this.animate(property, value, {
-        from,
-        duration,
-        easing: fabric.util.ease[easing]
-      });
-    }
+    initAnimation(this);
   }
 });
 fabric.AnimatedRect.fromObject = function(object, callback) {
@@ -65,24 +57,7 @@ fabric.AnimatedImage = fabric.util.createClass(fabric.Image, {
     options || (options = {});
     this.callSuper("initialize", element, options);
     this.set("animation", options.animation || {});
-    if (Object.keys(this.animation).length) {
-      const {
-        property,
-        value,
-        options: { from, duration, easing = "easeOutSine" }
-      } = this.animation;
-      console.info(property, value, {
-        from,
-        duration,
-        easing: fabric.util.ease[easing],
-        onChange: options.onChange
-      });
-      this.animate(property, value, {
-        from,
-        duration,
-        easing: fabric.util.ease[easing]
-      });
-    }
+    initAnimation(this);
   }
 });
 

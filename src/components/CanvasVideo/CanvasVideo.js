@@ -1,7 +1,8 @@
 import { PureComponent } from "react";
-import { number, object, string } from "prop-types";
+import { bool, number, object, string } from "prop-types";
 import { fabric } from "../FabricComponents";
 import { createVideoElement } from "../utils/common";
+import { WithContext } from "../utils/context";
 
 class CanvasVideo extends PureComponent {
   constructor(props) {
@@ -114,6 +115,7 @@ CanvasVideo.defaultProps = {
   height: 1920
 };
 CanvasVideo.propTypes = {
+  previewMode: bool,
   canvas: object,
   videoUrl: string.isRequired,
   poster: string,
@@ -121,4 +123,4 @@ CanvasVideo.propTypes = {
   left: number
 };
 
-export default CanvasVideo;
+export default WithContext(CanvasVideo);

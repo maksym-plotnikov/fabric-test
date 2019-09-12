@@ -1,10 +1,11 @@
 import { PureComponent } from "react";
-import { object, number, string } from "prop-types";
+import { bool, object, number, string } from "prop-types";
 import { fabric } from "../FabricComponents";
+import { WithCanvasContext } from "../utils/context";
 
 class CanvasImage extends PureComponent {
   componentDidMount() {
-    const { canvas, url, ...rest } = this.props;
+    const { canvas, url, scale, isBg, ...rest } = this.props;
     const options = {
       ...rest,
       ...{ crossOrigin: "Anonymous" }
@@ -12,7 +13,15 @@ class CanvasImage extends PureComponent {
     fabric.AnimatedImage.fromURL(
       url,
       img => {
-        canvas.add(img);
+        img.set({
+          scaleX: scale,
+          scaleY: scale
+        });
+        if (!isBg) {
+          canvas.add(img);
+        } else {
+          canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+        }
       },
       options
     );
@@ -23,13 +32,16 @@ class CanvasImage extends PureComponent {
   }
 }
 CanvasImage.defaultProps = {
-  scale: 1.0
-};
-CanvasImage.propTypes = {
-  canvas: object,
-  url: string.isRequired,
-  scale: number.isRequired,
-  top: number.isRequired
+  scale: 1.0,
+  isBg: false
 };
 
-export default CanvasImage;
+CanvasImage.propTypes = {
+  canvas: object.isRequired,
+  url: string.isRequired,
+  scale: number.isRequired,
+  top: number.isRequired,
+  isBg: bool
+};
+
+export default WithCanvasContext(CanvasImage);
