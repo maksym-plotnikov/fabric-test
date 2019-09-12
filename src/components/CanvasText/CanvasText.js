@@ -1,8 +1,8 @@
-import React from "react";
+import {PureComponent} from "react";
 import { number, object, string } from "prop-types";
 import { fabric } from "../FabricComponents";
 
-class CanvasText extends React.Component {
+class CanvasText extends PureComponent {
   componentDidMount() {
     const { canvas, text, ...rest } = this.props;
     const textEl = new fabric.AnimatedTextbox(text, rest);

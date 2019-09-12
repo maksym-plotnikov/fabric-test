@@ -1,8 +1,8 @@
-import React from "react";
+import {PureComponent} from "react";
 import { number, object, string } from "prop-types";
 import { fabric } from "../FabricComponents";
 
-class CanvasRect extends React.Component {
+class CanvasRect extends PureComponent {
   componentDidMount() {
     const rect = new fabric.AnimatedRect(this.props);
     this.props.canvas.add(rect);

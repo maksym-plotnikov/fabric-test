@@ -1,8 +1,8 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { object, number, string } from "prop-types";
 import { fabric } from "../FabricComponents";
 
-class CanvasImage extends Component {
+class CanvasImage extends PureComponent {
   componentDidMount() {
     const { canvas, url, ...rest } = this.props;
     const options = {

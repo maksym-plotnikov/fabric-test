@@ -1,9 +1,9 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { number, object, string } from "prop-types";
 import { fabric } from "../FabricComponents";
 import { createVideoElement } from "../utils/common";
 
-class CanvasVideo extends Component {
+class CanvasVideo extends PureComponent {
   constructor(props) {
     super(props);
     this.renderVideo = this.renderVideo.bind(this);
